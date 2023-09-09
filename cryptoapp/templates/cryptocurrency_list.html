@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cryptocurrency List</title>
+</head>
+<body>
+    <h1>Cryptocurrency List</h1>
+    <ul>
+        {% for cryptocurrency in page %}
+            <li>{{ cryptocurrency }} <!-- Modify this to display the relevant data for each cryptocurrency --></li>
+        {% empty %}
+            <li>No cryptocurrencies available.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Pagination links -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current-page">
+                Page {{ page.number }} of {{ page.paginator.num_pages }}.
+            </span>
+
+            {% if page.has_next %}
+                <a href="?page={{ page.next_page_number }}">next</a>
+                <a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
