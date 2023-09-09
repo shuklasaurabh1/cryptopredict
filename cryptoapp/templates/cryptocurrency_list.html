@@ -50,7 +50,9 @@
     <h1>Cryptocurrency List</h1>
     <ul>
         {% for cryptocurrency in page %}
-            <li>{{ cryptocurrency }} <!-- Modify this to display the relevant data for each cryptocurrency --></li>
+            <li>
+                <a href="{% url 'crypto_detail' cryptocurrency %}">{{ cryptocurrency }}</a>
+            </li>
         {% empty %}
             <li>No cryptocurrencies available.</li>
         {% endfor %}

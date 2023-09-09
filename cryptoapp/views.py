@@ -41,3 +41,25 @@ def cryptocurrency_list(request):
             return render(request, 'error.html', {'error_message': f"Failed to fetch data. Status code: {response.status_code}"})
     except Exception as e:
         return render(request, 'error.html', {'error_message': f"An error occurred: {str(e)}"})
+
+
+def cryptocurrency_detail(request, cryptocurrency_id):
+    # Define the base URL of the CoinGecko API for fetching cryptocurrency details
+    base_url = f"https://api.coingecko.com/api/v3/coins/{cryptocurrency_id}"
+
+    try:
+        # Send a GET request to fetch the cryptocurrency details
+        response = requests.get(base_url)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the JSON response
+            crypto_detail = response.json()
+
+            # Render the detail page with the cryptocurrency details
+            return render(request, 'crypto_detail.html', {'crypto_detail': crypto_detail})
+
+        else:
+            return render(request, 'error.html', {'error_message': f"Failed to fetch data. Status code: {response.status_code}"})
+    except Exception as e:
+        return render(request, 'error.html', {'error_message': f"An error occurred: {str(e)}"})

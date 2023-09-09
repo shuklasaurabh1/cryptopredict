@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cryptocurrency Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #35424a;
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+        }
+
+        div {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cryptocurrency Detail</h1>
+    <div>
+        <!-- Display cryptocurrency details here -->
+        <h2>{{ crypto_detail.name }}</h2>
+        <p>Symbol: {{ crypto_detail.symbol }}</p>
+        <p>Price: {{ crypto_detail.market_data.current_price.usd }}</p>
+        <p>Information:</p>
+        <div>
+            {{ crypto_detail.description.en | safe }}
+        </div>        <!-- Add more details as needed -->
+    </div>
+</body>
+</html>
