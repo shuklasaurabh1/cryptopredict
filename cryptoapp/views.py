@@ -4,11 +4,20 @@ import requests
 
 def cryptocurrency_list(request):
     # Define the base URL of the CoinGecko API for fetching the list of cryptocurrencies
-    base_url = "https://api.coingecko.com/api/v3/coins/list"
+    base_url = "https://api.coingecko.com/api/v3/coins/markets"
+
+    params = {
+    'vs_currency': 'usd',
+    'order': 'market_cap_desc',
+    'per_page': 100,
+    'page': 1,
+    'sparkline': False,
+    'locale': 'en'
+}   
 
     try:
         # Send a GET request to fetch the list of cryptocurrency IDs
-        response = requests.get(base_url)
+        response = requests.get(base_url, params)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
