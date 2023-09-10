@@ -42,7 +42,7 @@
         <!-- Display cryptocurrency details here -->
         <h2>{{ crypto_detail.name }}</h2>
         <p>Symbol: {{ crypto_detail.symbol }}</p>
-        <p>Price: {{ crypto_detail.market_data.current_price.usd }}</p>
+        <h3>Price: <b>{{ crypto_detail.market_data.current_price.usd }} USD </b></h3>
         <p>Information:</p>
         <div>
             {{ crypto_detail.description.en | safe }}
