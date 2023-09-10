@@ -47,6 +47,7 @@
         <div>
             {{ crypto_detail.description.en | safe }}
         </div>        <!-- Add more details as needed -->
+        <a href="{% url 'crypto_history_chart' crypto_detail.id %}">View Historical Chart</a>
     </div>
 </body>
 </html>

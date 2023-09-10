@@ -1,6 +1,11 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 import requests
+from datetime import datetime
+
+
+def home(request):
+    return render(request, 'home.html')
 
 def cryptocurrency_list(request):
     # Define the base URL of the CoinGecko API for fetching the list of cryptocurrencies
@@ -58,6 +63,37 @@ def cryptocurrency_detail(request, cryptocurrency_id):
 
             # Render the detail page with the cryptocurrency details
             return render(request, 'crypto_detail.html', {'crypto_detail': crypto_detail})
+
+        else:
+            return render(request, 'error.html', {'error_message': f"Failed to fetch data. Status code: {response.status_code}"})
+    except Exception as e:
+        return render(request, 'error.html', {'error_message': f"An error occurred: {str(e)}"})
+
+def crypto_history_chart(request, crypto_id):
+    # Define the API URL with the cryptocurrency ID and desired parameters
+    api_url = f"https://api.coingecko.com/api/v3/coins/{crypto_id}/market_chart"
+    params = {
+        'vs_currency': 'usd',
+        'days': 30,  # You can adjust the number of days as needed
+    }
+
+    try:
+        # Send a GET request to the API
+        response = requests.get(api_url, params=params)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the JSON response
+            data = response.json()
+
+            # Extract the necessary data from the response
+            prices = data['prices']
+            # timestamps = [datetime.fromtimestamp((entry[0])/1000) for entry in prices]
+            timestamps = [entry[0] for entry in prices]
+            values = [entry[1] for entry in prices]
+
+            # Render the historical chart template with the data
+            return render(request, 'crypto_history_chart.html', {'crypto_id': crypto_id, 'timestamps': timestamps, 'values': values})
 
         else:
             return render(request, 'error.html', {'error_message': f"Failed to fetch data. Status code: {response.status_code}"})

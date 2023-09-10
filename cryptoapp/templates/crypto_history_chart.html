@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historical Chart for {{ crypto_id }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Historical Chart for {{ crypto_id }}</h1>
+    <canvas id="cryptoChart" width="400" height="200"></canvas>
+    <script>
+        var ctx = document.getElementById('cryptoChart').getContext('2d');
+        
+        var timestamps = {{ timestamps|safe }};
+        var values = {{ values|safe }};
+
+        var cryptoChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timestamps,
+                datasets: [{
+                    label: 'Price (USD)',
+                    borderColor: 'blue',
+                    data: values,
+                }],
+            },
+        });
+    </script>
+</body>
+</html>
