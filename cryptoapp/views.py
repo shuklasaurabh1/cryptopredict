@@ -74,7 +74,7 @@ def crypto_history_chart(request, crypto_id):
     api_url = f"https://api.coingecko.com/api/v3/coins/{crypto_id}/market_chart"
     params = {
         'vs_currency': 'usd',
-        'days': 30,  # You can adjust the number of days as needed
+        'days': 365,  # You can adjust the number of days as needed
     }
 
     try:
@@ -88,8 +88,8 @@ def crypto_history_chart(request, crypto_id):
 
             # Extract the necessary data from the response
             prices = data['prices']
-            # timestamps = [datetime.fromtimestamp((entry[0])/1000) for entry in prices]
-            timestamps = [entry[0] for entry in prices]
+            timestamps = [str(datetime.fromtimestamp((entry[0])/1000).strftime('%Y-%m-%d')) for entry in prices]
+            # timestamps = [entry[0] for entry in prices]
             values = [entry[1] for entry in prices]
 
             # Render the historical chart template with the data
